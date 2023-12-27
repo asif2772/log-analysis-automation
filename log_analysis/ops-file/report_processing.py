@@ -31,7 +31,7 @@ def genGraph(filename, xlabel, ylabel, figtitle, xheader, yheader):
         axis_font = {'size': '8'}
         plt.xticks(rotation=45, **axis_font)
         plt.yticks(rotation=45, **axis_font)
-        plt.bar(csv[xheader], csv[yheader], width=.5, color='#1E88E5')
+        plt.bar(csv[xheader], csv[yheader], width=.5, color='#0F4472')
         plt.tight_layout()
         pdf.savefig(dpi=500)
 
