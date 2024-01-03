@@ -1,32 +1,41 @@
 #!/bin/bash
+print_message() {
+    local message=$1
+    local spinner="/-\|"
+    printf "%s " "$message"
+    for i in $(seq 1 20); do
+        printf "%s" "${spinner:i % 4:1}"
+        sleep 0.1
+        printf "\b"
+    done
+    printf "   \n"
+}
 date
 dt=`date --date="-1 day" +%d%b%y`
-echo " Script started"
 path=/home/bs960/imranMadbar/myPROJECT/log-analysis-automation/log_analysis
 archivePath=$path/archive-data
-
-echo " Old Report Archiving started"
 cd $path/processing_data
 ls -ltr | grep csv | awk '{print $9}' | zip -@ $archivePath/old_report_$dt.zip
-echo " Old Report Archiving completed & removing csv files"
 rm *.csv
-echo " Old CSV reports are removed after archiving " 
-
-echo " Starting report analysis ..."
-echo " "
-cd $path
-	echo " Request status wise counts & percentage - Script Started "
-./ops-file/request_status_analysis.sh
-	echo " Request status wise counts & percentage - Script Completed "
-	echo " MicroService wise request counts & average RTT - Script Started "
-./ops-file/service_wise_req_analysis.sh
-	echo " MicroService wise request counts & average RTT - Script Completed "
-
+echo "Old Report Archiving completed, Starting report analysis ..."
 sleep 2
-cd $path
-python3 -u ops-file/report_processing.py
-echo "report processing done"
+process_data() {
+    total_steps=3
+        cd $path
+		./ops-file/request_status_analysis.sh
+	sleep 2
+	print_message "Processing step 1/$total_steps"
+        ./ops-file/service_wise_req_analysis.sh
+	sleep 3
+    print_message "Processing step 2/$total_steps"
+	    cd $path
+        python3 -u ops-file/report_processing.py
+    sleep 3
+	print_message "Processing step 3/$total_steps"
+
+    sleep 1
+    echo "Processing completed!"
+}
+process_data
 
 
-echo " "
-echo "##########  All Script Completed ##########"
