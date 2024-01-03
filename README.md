@@ -1,4 +1,4 @@
-# log-analysis-automation
+# Log Analysis Automation
 
 
 ### Environment and Technology uses:
@@ -40,20 +40,19 @@ Access log formate set:
 
 
 
-Total Request Status summery:
+Total request status summary:
 
      cat access.log | awk '{print $8}' | sort  | uniq --count
   
 
-
- Service Wise hit count:
+Service-wise hit count:
 
      cat access.log | awk '{print $6}'|grep customer-info | wc -l
      cat access.log | awk '{print $6}'|grep product-info | wc -l
 
 
 
-Report preview:
+### Report Preview:
 
 
 ![image](https://github.com/imrangthub/log-analysis-automation/assets/32607915/4aba936e-1311-4317-87d3-01d2d5d0cf6d)
