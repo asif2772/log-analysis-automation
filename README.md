@@ -7,7 +7,9 @@
     - Java
     - Python
     - Shell Scripting
-
+    
+To run: after pulling the project from Git,  need to create the required directory and ensure that the files are placed in the correct locations.
+(In the shell script, there are a few hardcoded directory locations)
 
 Nginx  reverse proxy setup for two microservices (customer-info and product-info):
 
@@ -49,6 +51,10 @@ Service-wise hit count:
 
      cat access.log | awk '{print $6}'|grep customer-info | wc -l
      cat access.log | awk '{print $6}'|grep product-info | wc -l
+
+Starting reporting:
+
+    sudo bash analyzer-logops.sh 
 
 
 
