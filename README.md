@@ -9,6 +9,7 @@
     - Shell Scripting
     
 To run: after pulling the project from Git,  need to create the required directory and ensure that the files are placed in the correct locations.
+
 (In the shell script, there are a few hardcoded directory locations)
 
 Nginx  reverse proxy setup for two microservices (customer-info and product-info):
